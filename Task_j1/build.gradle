@@ -34,6 +34,9 @@ tasks.withType(JavaCompile).configureEach {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    } 
 }
 tasks.register('signingKey', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
