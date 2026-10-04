@@ -38,6 +38,12 @@ test {
         events 'passed', 'skipped', 'failed'
     } 
 }
+
+tasks.register('client', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.nsu.masolygin.client.ClientMain'
+}
+
 tasks.register('signingKey', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'ru.nsu.masolygin.crypto.SigningKeyMain'
