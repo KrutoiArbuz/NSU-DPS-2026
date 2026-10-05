@@ -24,7 +24,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'ru.nsu.masolygin.Main'
+    mainClass = 'ru.nsu.masolygin.list.ListMain'
 }
 
 tasks.withType(JavaCompile).configureEach {
