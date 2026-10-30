@@ -1,0 +1,37 @@
+plugins {
+    id 'application'
+}
+repositories {
+    mavenCentral()
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+dependencies {
+    implementation 'org.clojure:clojure:1.12.0'
+}
+sourceSets {
+    main.resources.srcDir 'src/main/clojure'
+    test.resources.srcDir 'src/test/clojure'
+}
+application {
+    mainClass = 'clojure.main'
+}
+def namespace = 'task-c6'
+tasks.named('run', JavaExec) {
+    args = ['-m', namespace] + (project.findProperty('appArgs') ?: '').tokenize()
+}
+tasks.register('clojureTest', JavaExec) {
+    dependsOn tasks.named('testClasses')
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'clojure.main'
+    args = ['-m', namespace + '-test']
+}
+tasks.named('check') {
+    dependsOn tasks.named('clojureTest')
+}
